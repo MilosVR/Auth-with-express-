@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+.menuItemDrop{ 
+  height: 40px;
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  cursor: pointer;
+}
+.menuItemDrop:hover{
+  background: mediumpurple !important; 
+  color: white ;
+}

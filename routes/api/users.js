@@ -12,6 +12,10 @@ const passport = require('passport')
 // app.use('/api/users', users); na ovaj route dodaje se /test i to je onda
 // /api/users/test @route   GET api/users/test @acces   Public
 
+// Load Input Validation
+const validateRegisterInput = require('../../validations/register');
+const validateLoginInput = require('../../validations/login')
+
 router.get('/test', (req, res) => {
     res.json({msg: "Users works"})
 })
@@ -19,7 +23,14 @@ router.get('/test', (req, res) => {
 // @route   GET api/users/register @acces   Public
 
 router.post('/register', (req, res) => {
-    //finOne is mongo method who is use the promise
+    
+    const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
     User
         .findOne({email: req.body.email})
         .then(user => {
@@ -60,6 +71,14 @@ router.post('/register', (req, res) => {
 // Public
 
 router.post('/login', (req, res) => {
+    
+    const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -69,9 +88,10 @@ router.post('/login', (req, res) => {
         .then(user => {
             //Check for user
             if (!user) {
+                errors.email = "User not found"
                 return res
                     .status(404)
-                    .json({email: 'User not found'})
+                    .json(errors)
             }
             //Check password first arg is plain text password, secund is hash pass
             bcrypt.compare(password, user.password)
@@ -96,9 +116,10 @@ router.post('/login', (req, res) => {
                         })
                     })
                 } else {
+                    errors.password = "Password incorrect"
                     return res
                         .status(400)
-                        .json({password: "Password incorrect"})
+                        .json(errors)
                 }
             })
         })

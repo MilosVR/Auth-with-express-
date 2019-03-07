@@ -1,0 +1,17 @@
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: mediumslateblue !important;
+}
+/* label underline focus color */
+ .input-field input[type=text]:focus {
+    border-bottom: 1px solid mediumslateblue !important;
+    box-shadow: 0 1px 0 0 mediumslateblue !important;
+  }
+
+  .input-field input[type=password]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+    color: mediumslateblue !important;
+   }
+   .input-field input[type=password]:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid mediumslateblue !important;
+    box-shadow: 0 1px 0 0 mediumslateblue !important;
+   }
