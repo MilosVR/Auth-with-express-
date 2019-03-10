@@ -57,7 +57,7 @@ class Login extends Component {
           <div style={{width:"100%", height:"80px", background:"mediumPurple",display:"flex",
         justifyContent:'center', alignItems:"center", fontSize:"24px",marginBottom:'50px',borderRadius:"5px"}}>
         Login <span> or sign in with </span>
-        <a href=""> Google</a>
+        <a href="/auth/google"> Google</a>
         </div>
 
         <form onSubmit={this.onFormSubmit} className="col s6" autoComplete="off">

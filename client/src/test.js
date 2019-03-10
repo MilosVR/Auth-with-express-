@@ -16,10 +16,10 @@ class Test extends Component {
                 return
 
             case false : 
-                return <button onClick={()=> this.props.loginWithGoogle()}>Login</button>
+                return <a href="/auth/google"> login</a>
 
             default:
-                return <button onClick={()=>this.props.logoutWithGoogle()}>Logout</button>
+                return <a href="/auth/google/logout"> logout</a>
         }
     }
 

@@ -8,12 +8,6 @@ const googleAuthReducer = ( state=null, action ) => {
         case FETCH_GOOGLE_USER:
             return action.payload || false
 
-        case LOGIN_GOOGLE_USER:
-            return action.payload   
-
-        case LOGOUT_GOOGLE_USER:
-            return false
-            
         default:
             return state
     }
