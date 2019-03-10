@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loginUser, setCurrentUser } from '../actions/action'
+import { loginUser, setCurrentUser,  fetchGoogleUser} from '../actions/action'
 import './loginAndRegister.css'
 
 class Login extends Component {
@@ -21,6 +21,7 @@ class Login extends Component {
       if (this.props.auth.isAuthenticated) {
         this.props.history.push('/dashboard')
       }
+      this.props.fetchGoogleUser()
     }
     componentWillReceiveProps(nextProps){
       if (nextProps.auth.isAuthenticated) {
@@ -55,7 +56,9 @@ class Login extends Component {
       background:"rgb(0,0,0,0.8)", padding:"20px", color:"white", borderRadius:"5px"}}>
           <div style={{width:"100%", height:"80px", background:"mediumPurple",display:"flex",
         justifyContent:'center', alignItems:"center", fontSize:"24px",marginBottom:'50px',borderRadius:"5px"}}>
-        Login</div>
+        Login <span> or sign in with </span>
+        <a href=""> Google</a>
+        </div>
 
         <form onSubmit={this.onFormSubmit} className="col s6" autoComplete="off">
 
@@ -99,7 +102,8 @@ class Login extends Component {
 
 const actions = {
     loginUser,
-    setCurrentUser
+    setCurrentUser,
+    fetchGoogleUser
 }
 
 const mapStateToProps = state => {

@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/Dashboard'
 import Home from './components/Home'
+import test from './test';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path='/register' component={Register}/>
         <Route path='/login' component={Login}/>
         <Route path='/dashboard' component={Dashboard}/>
+        <Route path='/test' component={test}/>
       </div>
       </BrowserRouter>
     );

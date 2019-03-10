@@ -5,6 +5,9 @@ export const REGISTER_USER = "REGISTER_USER"
 export const CACTH_ERRORS = "CACTH_ERRORS"
 export const LOGIN_USER = "LOGIN_USER"
 export const SET_CURRENT_USER = "SET_CURRENT_USER"
+export const FETCH_GOOGLE_USER = "FETCH_GOOGLE_USER"
+export const LOGIN_GOOGLE_USER = "LOGIN_GOOGLE_USER"
+export const LOGOUT_GOOGLE_USER = "LOGOUT_GOOGLE_USER"
 
 export const registerUser = (userData, history) => dispatch => {
 
@@ -60,4 +63,41 @@ export const logoutUser = () => dispatch => {
     setAuthToken(false)
     //Set current user to {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}))
+}
+
+////////////GOOGLE LOG IN////////////////
+
+export const googleUser = user => {
+    return {
+        type : FETCH_GOOGLE_USER,
+        payload : user
+    }
+}
+
+export const fetchGoogleUser = () => async dispatch => {
+    const response = await axios.get('/auth/google/current_user')
+    dispatch(googleUser(response.data))
+    
+}
+export const loginGoogleUser = user => {
+    return {
+        type : LOGIN_GOOGLE_USER,
+        payload : user
+    }
+}
+export const loginWithGoogle = () => async dispatch => {
+    const response = await axios.get('/auth/google')
+    dispatch(loginGoogleUser(response.data))
+    
+}
+export const logoutGoogleUser = user => {
+    return {
+        type : LOGOUT_GOOGLE_USER,
+        payload : user
+    }
+}
+export const logoutWithGoogle = () => async dispatch => {
+    const response = await axios.get('/auth/google/logout')
+    dispatch(logoutGoogleUser(response.data))
+    
 }
