@@ -18,6 +18,14 @@ class Register extends Component {
           this.props.history.push('/dashboard')
         }
       }
+      componentWillReceiveProps(nextProps){
+        if(nextProps.errors){
+          this.setState({
+            errors : nextProps.errors
+          })
+        }
+      }
+
     onChangeHandle = e => {
         this.setState({
             [e.target.name]:e.target.value
@@ -68,45 +76,45 @@ class Register extends Component {
 
         <div className="input-field col s12 ">
             <input style={{color:'white'}}
-            id="name" type='text' className={this.props.errors.name ? 'invalid' : 'validate'}
+            id="name" type='text' className={this.state.errors.name ? 'invalid' : 'validate'}
             value={this.state.name} 
             name='name' 
             onChange={this.onChangeHandle}/>
             <label htmlFor="name">Name</label>
-            <span className="helper-text" data-error={this.props.errors.name} data-success='Work'>
+            <span className="helper-text" data-error={this.state.errors.name} data-success='Work'>
             </span>
         </div>
 
         <div className="input-field col s12 ">
             <input style={{color:'white'}}
-            id="email" type='text' className={this.props.errors.email ? 'invalid' : 'validate'}
+            id="email" type='text' className={this.state.errors.email ? 'invalid' : 'validate'}
             value={this.state.email} 
             name='email' 
             onChange={this.onChangeHandle}/>
             <label htmlFor="email">Email</label>
-            <span className="helper-text" data-error={this.props.errors.email && this.props.errors.email} >
+            <span className="helper-text" data-error={this.state.errors.email && this.state.errors.email} >
             </span>
         </div>
 
         <div className="input-field col s12 ">
             <input style={{color:'white'}}
-            id="password" type='text' className={this.props.errors.password ? 'invalid' : 'validate'}
+            id="password" type='text' className={this.state.errors.password ? 'invalid' : 'validate'}
             value={this.state.password} 
             name='password' 
             onChange={this.onChangeHandle}/>
             <label htmlFor="password">Password</label>
-            <span className="helper-text" data-error={this.props.errors.password && this.props.errors.password} >
+            <span className="helper-text" data-error={this.state.errors.password && this.state.errors.password} >
             </span>
         </div>
 
         <div className="input-field col s12 ">
             <input style={{color:'white'}}
-            id="password2" type='text' className={this.props.errors.password2 ? 'invalid' : 'validate'}
+            id="password2" type='text' className={this.state.errors.password2 ? 'invalid' : 'validate'}
             value={this.state.password2} 
             name='password2' 
             onChange={this.onChangeHandle}/>
             <label htmlFor="password2">Confirm Password</label>
-            <span className="helper-text" data-error={this.props.errors.password2 && this.props.errors.password2} >
+            <span className="helper-text" data-error={this.state.errors.password2 && this.state.errors.password2} >
             </span>
         </div>
 
