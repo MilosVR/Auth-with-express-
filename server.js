@@ -66,14 +66,14 @@ app.get(
     '/auth/google/callback', 
     passport.authenticate('google'),
     (req, res) => {
-        res.redirect('/test')
+        res.redirect('/dashboard')
     }
     );
   
 ///*************Logout Googleuser***************/
 app.get('/auth/google/logout', (req, res)=> {
     req.logOut()
-    res.redirect('/test')
+    res.redirect('/')
 })
 app.get('/auth/google/current_user', (req, res)=>{
     res.send(req.user)

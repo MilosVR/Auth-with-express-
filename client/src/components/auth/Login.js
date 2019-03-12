@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { loginUser, setCurrentUser,  fetchGoogleUser} from '../actions/action'
 import './loginAndRegister.css'
 
@@ -18,20 +19,20 @@ class Login extends Component {
         })
     }    
     componentDidMount(){
-      if (this.props.auth.isAuthenticated) {
+      this.props.fetchGoogleUser()
+      if (this.props.auth.isAuthenticated || this.props.currentUser) {
         this.props.history.push('/dashboard')
       }
-      this.props.fetchGoogleUser()
     }
     componentWillReceiveProps(nextProps){
-      if (nextProps.auth.isAuthenticated) {
+      if (nextProps.auth.isAuthenticated ) {
         this.props.history.push('/dashboard')
       }
-      //if(nextProps.errors){
-        //this.setState({
-          //errors : nextProps.errors
-        //})
-      //}
+      if(nextProps.errors){
+        this.setState({
+          errors : nextProps.errors
+        })
+      }
       
     }
     onFormSubmit = e => {
@@ -50,19 +51,35 @@ class Login extends Component {
 
   render() {
     return (
-      <div style={{background:'url(/assets/loginBackground.jpg) center center', width:"100%",height:'calc(100vh - 60px)',
-      display:'flex', justifyContent:'center', alignItems:'center'}}>
-      <div style={{width:"600px", margin:"0 auto", textAlign:'center', height:'400px', 
-      background:"rgb(0,0,0,0.8)", padding:"20px", color:"white", borderRadius:"5px"}}>
-          <div style={{width:"100%", height:"80px", background:"mediumPurple",display:"flex",
-        justifyContent:'center', alignItems:"center", fontSize:"24px",marginBottom:'50px',borderRadius:"5px"}}>
-        Login <span> or sign in with </span>
-        <a href="/auth/google"> Google</a>
+      <div style={{background:'steelBlue ', width:"100%",height:'calc(100vh - 60px)',
+                   display:'flex', justifyContent:'center', alignItems:'center'}}>
+
+      <div className='leftLoginSide'>
+      <div style={{background:'black',borderRadius:'5px', width:"400px",margin:'0 auto', 
+                   display:"flex", justifyContent:'center', alignItems:'center', height:"50px"}}>
+      <span style={{color:'white', marginRight:"10px"}}>Don't have an account? </span>
+      <Link to='/register'> Sign up here </Link> 
+      </div>
+      </div>
+
+      <div className='rightLoginSide'>
+      <div style={{width:"90%", }}>
+      <div style={{fontSize:"30px",display:"flex",justifyContent:"center", alignItems:"center", margin:' 0 auto'}}>
+        Login <span style={{marginLeft:"10px", fontSize:"16px"}}> or </span>
+        <a href="/auth/google" 
+        style={{marginLeft:"10px", background:'dodgerBlue ', color:"white", borderRadius:"3px", display:"flex", 
+                justifyContent:"center",alignItems:'center', height:"40px", margin:"20px"}}>
+        <div style={{background:'white', width:"40px", height:'40px', borderRadius:" 3px  0 0  3px"}}>
+          <img alt='' src='/assets/gFont.jpg' style={{width:"40px", height:'40px'}}/>
         </div>
+        <span style={{padding:"10px", fontSize:"16px", fontWeight:"bold"}}>Sign in with Google</span>
+        </a>
+    
+      </div>
 
-        <form onSubmit={this.onFormSubmit} className="col s6" autoComplete="off">
+        <form onSubmit={this.onFormSubmit} className="col s6" autoComplete="off" style={{margin:"20px"}}>
 
-            <div className="input-field col s12 LAR">
+            <div className="input-field col s12" style={{width:'80%', margin:'0 auto'}}>
             <input style={{color:'white'}}
             id="email" type='text' className={this.props.errors.email ? 'invalid' : 'validate'}
             value={this.state.email} 
@@ -74,7 +91,7 @@ class Login extends Component {
             </div>
                         
             
-            <div className="input-field col s12 LAR" >
+            <div className="input-field col s12 LAR" style={{width:'80%', margin:'0 auto'}}>
             <input style={{color:'white'}}
             id="password" type='password' className={this.props.errors.password ? 'invalid' : 'validate'}
             value={this.state.password} 
@@ -85,15 +102,15 @@ class Login extends Component {
             </span>
             </div>
             
-            <button style={{background:"mediumPurple"}}
+            <button style={{background:"dodgerBlue", margin:'20px'}}
             className="btn waves-effect waves-light" 
-            type="submit" name="action">
-              Submit
+            type="submit" name="action">Login
               <i className="material-icons right">send</i>
             </button>
 
         </form>
 
+      </div>
       </div>
       </div>
     )
@@ -109,7 +126,8 @@ const actions = {
 const mapStateToProps = state => {
     return {
         auth : state.auth,
-        errors : state.errors
+        errors : state.errors,
+        currentUser : state.currentUserGoogle
     }
 }
 

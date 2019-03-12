@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logoutUser } from './components/actions/action'
+import { logoutUser, fetchGoogleUser } from './components/actions/action'
 import { withRouter } from 'react-router-dom'
 
 
@@ -9,6 +9,10 @@ class Navbar extends Component {
 
   state = {
     showMenu : false
+  }
+
+  componentDidMount(){
+    this.props.fetchGoogleUser()
   }
 
   dropdawnShow = () => {
@@ -24,7 +28,6 @@ class Navbar extends Component {
   }
 
   render() {
-    console.log(this.props.auth.isAuthenticated);
     
     return (
       <div style={{width:'100%', height:"60px", display:"flex", justifyContent:"center", 
@@ -39,14 +42,20 @@ class Navbar extends Component {
         </div>
 
         <div>
-      {this.props.auth.isAuthenticated ?
+      {this.props.auth.isAuthenticated  || this.props.currentUser ?
        
         <div style={{display:'block', width:"150px", position:'relative', textAlign:'center'}}>
 
          <div style={{display:'flex', alignItems:'center', justifyContent:"center"}}>
+
+         {this.props.auth.isAuthenticated ? 
          <img src={this.props.auth.users.avatar} alt='' onClick={this.dropdawnShow}
          style={{width:"30px", height:"30px", borderRadius:"50%", marginRight:"10px",cursor:'pointer'}} />
-        {this.props.auth.users.name}
+         : <img src={this.props.currentUser.avatar} alt=''   onClick={this.dropdawnShow}
+         style={{width:"30px", height:"30px", borderRadius:"50%", marginRight:'10px',cursor:"pointer"}}/>
+        }
+
+        {this.props.auth.users.name || this.props.currentUser.name}
       
          </div>
 
@@ -62,25 +71,30 @@ class Navbar extends Component {
             <span >My Profile</span>
           </div>
          
+          {this.props.auth.isAuthenticated ? 
           <div className='menuItemDrop' onClick={this.logOut} >
             <span >Logout</span>
-          </div>
+          </div> 
+          : <a href='/auth/google/logout' className='menuItemDrop'>Logout</a>}
+
         </div>} 
 
        </div>
-
+        
        : <div>
        <Link to='/login'>
-      <button style={{border:'none', outline:'none', background:"mediumslateblue", color:"white",
+      <button style={{border:'none', outline:'none', background:"dodgerBlue", color:"white",
       padding:"10px", cursor:'pointer', marginRight:"10px", borderRadius:"3px"}}>Login</button>
       </Link>
 
       <Link to='/register'>
-      <button style={{border:'none', outline:'none', background:"mediumslateblue", color:"white",
+      <button style={{border:'none', outline:'none', background:"dodgerBlue", color:"white",
       padding:"10px", cursor:'pointer', borderRadius:"3px"}}>Sign up</button>
       </Link>
      </div> 
       }
+
+      
 
         </div>
         </div>
@@ -90,12 +104,14 @@ class Navbar extends Component {
 }
 
 const actions = {
-  logoutUser
+  logoutUser,
+  fetchGoogleUser,
 }
 
 const mapStateToProps = state => {
   return {
     auth : state.auth,
+    currentUser : state.currentUserGoogle
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchGoogleUser, logoutGoogleUser, loginGoogleUser,loginWithGoogle,logoutWithGoogle } from './components/actions/action'
+import { fetchGoogleUser } from './components/actions/action'
 
 
 class Test extends Component {
@@ -19,12 +19,16 @@ class Test extends Component {
                 return <a href="/auth/google"> login</a>
 
             default:
-                return <a href="/auth/google/logout"> logout</a>
+                return (
+                  <a href="/auth/google/logout"> 
+                  <div style={{marginRight:"10px"}}>{this.props.currentUser && this.props.currentUser.name}</div>
+                  logout</a>
+                )
         }
     }
 
   render() {
-    console.log(this.props.currentUser)
+    
     return (
       <div>
         <h3 style={{marginTop:"100px"}}>Google Auth</h3>
@@ -35,10 +39,6 @@ class Test extends Component {
 }
 const actions = {
     fetchGoogleUser,
-    logoutGoogleUser,
-    loginGoogleUser,
-    loginWithGoogle,
-    logoutWithGoogle
 }
 
 const mapStateToProps = state => {

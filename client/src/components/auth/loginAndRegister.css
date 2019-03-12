@@ -1,17 +1,35 @@
 /* label focus color */
 .input-field input[type=text]:focus + label {
-    color: mediumslateblue !important;
+    color: dodgerblue !important;
 }
 /* label underline focus color */
  .input-field input[type=text]:focus {
-    border-bottom: 1px solid mediumslateblue !important;
-    box-shadow: 0 1px 0 0 mediumslateblue !important;
+    border-bottom: 1px solid dodgerblue !important;
+    box-shadow: 0 1px 0 0 dodgerblue !important;
   }
 
   .input-field input[type=password]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
-    color: mediumslateblue !important;
+    color: dodgerblue !important;
    }
    .input-field input[type=password]:focus, .materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid mediumslateblue !important;
-    box-shadow: 0 1px 0 0 mediumslateblue !important;
+    border-bottom: 1px solid dodgerblue !important;
+    box-shadow: 0 1px 0 0 dodgerblue !important;
    }
+.leftLoginSide{
+  height:600px; 
+  width:600px; 
+  background:url(/assets/loginGIf.gif)center center;
+  box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
+}
+.rightLoginSide{
+  width:600px; 
+  text-align:center; 
+  height:600px ;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgb(0,0,0,0.8);
+  padding:20px;
+  color:white;
+  box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
+}

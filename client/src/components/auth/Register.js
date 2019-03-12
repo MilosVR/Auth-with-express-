@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { registerUser } from '../actions/action'
 import { withRouter } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 class Register extends Component {
 
@@ -45,13 +45,24 @@ class Register extends Component {
 
   render() {
     return (
-        <div style={{background:'url(/assets/loginBackground.jpg) center center', width:"100%",height:"100vh",
-        display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <div style={{width:"600px", margin:"0 auto", textAlign:'center', height:'600px', 
-        background:"rgb(0,0,0,0.8)", padding:"20px", color:"white", borderRadius:"5px"}}>
-            <div style={{width:"100%", height:"80px", background:"mediumPurple",display:"flex",
-          justifyContent:'center', alignItems:"center", fontSize:"24px",marginBottom:'50px',borderRadius:"5px"}}>
-          Register</div>
+        <div style={{background:'steelBlue ', width:"100%",height:'calc(100vh - 60px)',
+                   display:'flex', justifyContent:'center', alignItems:'center'}}>
+
+      <div className='leftLoginSide' style={{background:'url(/assets/registerGif.gif) center center'}}>
+      <div style={{background:'black',borderRadius:'5px', width:"400px",margin:'0 auto', 
+                   display:"flex", justifyContent:'center', alignItems:'center', height:"50px"}}>
+      <span style={{color:'white', marginRight:"10px"}}>Already have an account? </span>
+      <Link to='/login'> Sign in </Link> 
+      </div>
+      </div>
+
+      <div className='rightLoginSide'>
+      <div style={{width:"90%", }}>
+      <div style={{fontSize:"30px",display:"flex",justifyContent:"center", alignItems:"center", margin:' 0 auto'}}>
+        Register 
+        
+    
+      </div>
 
         <form onSubmit={this.onFormSubmit} className="col s6" autoComplete="off">
 
@@ -99,7 +110,7 @@ class Register extends Component {
             </span>
         </div>
 
-        <button style={{background:"mediumPurple"}}
+        <button style={{background:"dodgerBlue"}}
             className="btn waves-effect waves-light" 
             type="submit" name="action">
               Register
@@ -108,7 +119,7 @@ class Register extends Component {
 
         </form>
 
-
+    </div>
       </div>
       </div>
     )
